@@ -1,0 +1,27 @@
+Com Base Na Implementação da Aplicação de Inserção de Referências.
+Criar um arquivo de índice primário para fazer a consulta pelo DOI ou Nome (opcional Deixar claro na documentação) do artigo utilizando árvore b (referência Cormen  Página 484 da 3 edição americana)
+Requisitos:
+       A aplicação deve ser capaz de Inserir, buscar, alterar e excluir um registro no arquivo.
+
+ex: Registro {DOI, Autor, nome, ano de publicação} indexado pelo DOI
+
+Considerações:
+Pode ser em Dupla / Trio / Individual
+A metodologia de implementação fica a escolha do grupo e deve ser justificado no relatório de implementação.
+O código deve ser comentado contendo a explicação dos passos e funções.
+
+Todos os alunos deve submeter uma cópia do relatório de implementação.
+No relatório adicionem como referência as urls de repositórios utilizados para consulta.
+
+Registro de Artigo
+ - [Chave Primaria] DOI: str(64)
+ - Nome: str(64)
+ - Autor: str(64)
+ - Ano de publicação: unsigned int
+
+Árvore B
+ - Indexada pelo DOI
+ - Inserir
+ - Buscar
+ - Editar (nome, autor, ano)
+ - Excluir

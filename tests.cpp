@@ -1,14 +1,23 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-int fact(int n)
+#include "Article.h"
+
+static const unsigned some_year = 2000u;
+static const char* const some_doi = "Doi";
+
+Article some_article(some_doi, "Name", "Author", some_year);
+
+TEST_CASE("Article should be able to compare primary key")
 {
-	return n <= 1 ? 1 : fact(n - 1) * n;
+	CHECK(some_article.compare_key(some_doi));
+
+	static const char* const different_doi = "Different_Doi";
+	CHECK(!some_article.compare_key(different_doi));
 }
-TEST_CASE("testing the factorial function")
+
+TEST_CASE("Article should write to file")
 {
-	CHECK(fact(0) == 1); // should fail
-	CHECK(fact(1) == 1);
-	CHECK(fact(2) == 2);
-	CHECK(fact(3) == 6);
-	CHECK(fact(10) == 3628800);
+	std::ofstream file("testfile.txt", std::fstream::app | std::fstream::in);
+//	some_article.dump(file);
+//	file.close();
 }
