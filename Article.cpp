@@ -1,5 +1,5 @@
 #include <cstring>
-#include <ostream>
+#include <fstream>
 #include "Article.h"
 
 Article::Article(const char* doi, std::string name, std::string author, unsigned int year)
@@ -10,7 +10,7 @@ bool Article::compare_key(const std::string& other_doi)
 {
 	return doi == other_doi;
 }
-void Article::dump(std::ostream f)
+void Article::write(std::fstream& out)
 {
-//	f.write(this->doi, FIELD_MAX_STR_LEN);
+	out.write(this->doi, FIELD_MAX_STR_LEN);
 }

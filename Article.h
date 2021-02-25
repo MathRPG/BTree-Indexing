@@ -8,7 +8,7 @@ class Article
 public:
 	Article(const char* doi, std::string name, std::string author, unsigned year);
 	bool compare_key(const std::string& other_doi);
-	void dump(std::ostream f);
+	void write(std::fstream& out);
 private:
 	char doi[FIELD_MAX_STR_LEN]{};
 };
