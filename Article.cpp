@@ -35,6 +35,11 @@ bool Article::is_identical(Article& other)
 	return true;
 }
 
+bool Article::operator==(Article &some_article, Article &other_article)
+{
+    return some_article.is_identical(other_article);
+}
+
 void Article::write(std::fstream& out)
 {
 	out.write(this->doi, MAX_DOI_LEN);
