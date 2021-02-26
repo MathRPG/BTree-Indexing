@@ -76,7 +76,7 @@ TEST_SUITE("Article")
 			CHECK(file.tellp() == some_article.infile_size());
 		}
 
-		SUBCASE("writes to file something that can be interpreted back") // TODO: Rename
+		SUBCASE("data written in file is readable")
 		{
 			CHECK(some_article.is_identical(other_article));
 		}
