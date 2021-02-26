@@ -19,7 +19,7 @@ TEST_SUITE("Article")
 	{
 		CHECK(some_article.has_primary_key(some_doi));
 		CHECK_FALSE(some_article.has_primary_key(other_doi));
-	}
+	};
 
 	TEST_CASE("should compare if it is identical to other articles")
 	{
@@ -27,37 +27,54 @@ TEST_SUITE("Article")
 		{
 			Article some_article_different_doi(other_doi, some_name, some_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_doi));
-		}
+		};
 
 		SUBCASE("returns false if Names are different")
 		{
 			Article some_article_different_name(some_doi, other_name, some_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_name));
-		}
+		};
 
 		SUBCASE("returns false if Authors are different")
 		{
 			Article some_article_different_author(some_doi, some_name, other_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_author));
-		}
+		};
 
 		SUBCASE("returns false if Years are different")
 		{
 			Article some_article_different_year(some_doi, some_name, some_author, other_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_year));
-		}
+		};
 
 		SUBCASE("returns true if articles are identical")
 		{
 			Article some_article_identical(some_doi, some_name, some_author, some_year);
 			CHECK(some_article.is_identical(some_article_identical));
-		}
-	}
+		};
+	};
 
 	TEST_CASE("should write to file its writing writing_size")
 	{
 		std::fstream file("testfile.txt", std::fstream::in | std::fstream::out);
 		file << some_article;
 		CHECK(file.tellg() == some_article.writing_size());
-	}
-}
+		file.close();
+	};
+
+	TEST_CASE("should write to file so that it can be constructed back")
+	{
+		std::fstream file("testfile.txt", std::fstream::in | std::fstream::out);
+
+		file << some_article;
+
+		file.seekp(0);
+
+		Article other_article;
+		file >> other_article;
+
+		CHECK(some_article.is_identical(other_article));
+
+		file.close();
+	};
+};

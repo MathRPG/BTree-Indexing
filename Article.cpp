@@ -14,7 +14,7 @@ Article::Article(const char* doi, const char* name, const char* author, unsigned
 
 size_t Article::writing_size()
 {
-	return sizeof(doi);
+	return MAX_DOI_LEN + MAX_NAME_LEN + MAX_AUTHOR_LEN + sizeof(this->year);
 }
 
 bool Article::has_primary_key(const char* other_doi)
@@ -38,6 +38,9 @@ bool Article::is_identical(Article& other)
 void Article::write(std::fstream& out)
 {
 	out.write(this->doi, MAX_DOI_LEN);
+	out.write(this->name, MAX_NAME_LEN);
+	out.write(this->author, MAX_AUTHOR_LEN);
+	out.write(reinterpret_cast<char*> (&this->year), sizeof(this->year));
 }
 
 std::fstream& operator<<(std::fstream& out, Article& article)
@@ -49,6 +52,9 @@ std::fstream& operator<<(std::fstream& out, Article& article)
 void Article::read(std::fstream& in)
 {
 	in.read(this->doi, MAX_DOI_LEN);
+	in.read(this->name, MAX_NAME_LEN);
+	in.read(this->author, MAX_AUTHOR_LEN);
+	in.read(reinterpret_cast<char*> (&this->year), sizeof(this->year));
 }
 void operator>>(std::fstream& in, Article& article)
 {
