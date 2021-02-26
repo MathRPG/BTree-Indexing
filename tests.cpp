@@ -1,4 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <filesystem>
 #include "doctest.h"
 #include "Article.h"
 #include "B_Tree.h"
@@ -93,9 +94,35 @@ TEST_SUITE("B-Tree")
 		B_Tree tree("index.txt", "registry.txt");
 	}
 
-	TEST_CASE()
+	TEST_CASE("should create index file if it doesn't exist")
 	{
+		const char* nonexistent_filepath = "thisfiledoesnotexist.txt";
+		remove(nonexistent_filepath);
 
+		B_Tree tree(nonexistent_filepath, "somefile.txt");
+
+		CHECK(std::filesystem::exists(nonexistent_filepath));
+		remove(nonexistent_filepath);
 	}
 
+	TEST_CASE("should create registry file if it doesn't exist")
+	{
+		const char* nonexistent_filepath = "thisfiledoesnotexist.txt";
+		remove(nonexistent_filepath);
+
+		B_Tree tree("somefile.txt", nonexistent_filepath);
+
+		CHECK(std::filesystem::exists(nonexistent_filepath));
+		remove(nonexistent_filepath);
+	}
+
+//	TEST_CASE("should only close file when tree object is destructed")
+//	{
+//		const char* some_filepath = "somefilepath.txt";
+//
+//		B_Tree tree(some_filepath, "otherfile.txt");
+//		std::fstream file(some_filepath);
+//
+//		CHECK(file.is_open());
+//	}
 }
