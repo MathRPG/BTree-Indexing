@@ -60,3 +60,7 @@ void operator>>(std::fstream& in, Article& article)
 {
 	article.read(in);
 }
+bool Article::operator==(Article& other)
+{
+	return this->is_identical(other);
+}

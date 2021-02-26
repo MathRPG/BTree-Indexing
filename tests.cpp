@@ -28,39 +28,36 @@ TEST_SUITE("Article")
 		SUBCASE("it returns false if DOIs are different")
 		{
 			Article some_article_different_doi(other_doi, some_name, some_author, some_year);
-			CHECK_FALSE(some_article.is_identical(some_article_different_doi));
+			CHECK_EQ(some_article == some_article_different_doi, false);
 		}
 
 		SUBCASE("it returns false if Names are different")
 		{
 			Article some_article_different_name(some_doi, other_name, some_author, some_year);
-			CHECK_FALSE(some_article.is_identical(some_article_different_name));
+			CHECK_EQ(some_article == some_article_different_name, false);
 		}
 
 		SUBCASE("it returns false if Authors are different")
 		{
 			Article some_article_different_author(some_doi, some_name, other_author, some_year);
-			CHECK_FALSE(some_article.is_identical(some_article_different_author));
+			CHECK_EQ(some_article == some_article_different_author, false);
 		}
 
 		SUBCASE("it returns false if Years are different")
 		{
 			Article some_article_different_year(some_doi, some_name, some_author, other_year);
-			CHECK_FALSE(some_article.is_identical(some_article_different_year));
+			CHECK_EQ(some_article == some_article_different_year, false);
 		}
 
 		SUBCASE("it returns true if all fields are equal")
 		{
 			Article some_article_identical(some_doi, some_name, some_author, some_year);
-			CHECK(some_article.is_identical(some_article_identical));
+			CHECK_EQ(some_article == some_article_identical, true);
 		}
 	}
 
 	TEST_CASE("should write and read from files")
 	{
-		// p == a gente lendo
-		// g == a gente escrevendo
-
 		std::fstream file("testfile.txt", std::fstream::in | std::fstream::out);
 		file << some_article;
 
@@ -96,10 +93,10 @@ TEST_SUITE("B-Tree")
 
 	TEST_CASE("should create index file if it doesn't exist")
 	{
-		const char* nonexistent_filepath = "thisfiledoesnotexist.txt";
+		const char* nonexistent_filepath = "this_file_does_not_exist.txt";
 		remove(nonexistent_filepath);
 
-		B_Tree tree(nonexistent_filepath, "somefile.txt");
+		B_Tree tree(nonexistent_filepath, "some_file.txt");
 
 		CHECK(std::filesystem::exists(nonexistent_filepath));
 		remove(nonexistent_filepath);
@@ -107,22 +104,14 @@ TEST_SUITE("B-Tree")
 
 	TEST_CASE("should create registry file if it doesn't exist")
 	{
-		const char* nonexistent_filepath = "thisfiledoesnotexist.txt";
+		const char* nonexistent_filepath = "this_file_does_not_exist.txt";
 		remove(nonexistent_filepath);
 
-		B_Tree tree("somefile.txt", nonexistent_filepath);
+		B_Tree tree("some_file.txt", nonexistent_filepath);
 
 		CHECK(std::filesystem::exists(nonexistent_filepath));
 		remove(nonexistent_filepath);
 	}
 
 //	TEST_CASE("should only close file when tree object is destructed")
-//	{
-//		const char* some_filepath = "somefilepath.txt";
-//
-//		B_Tree tree(some_filepath, "otherfile.txt");
-//		std::fstream file(some_filepath);
-//
-//		CHECK(file.is_open());
-//	}
 }

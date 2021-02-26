@@ -15,8 +15,10 @@ public:
 	Article(const char* doi, const char* name, const char* author, unsigned year);
 
 	size_t infile_size();
+
 	bool has_primary_key(const char* other_doi);
 	bool is_identical(Article& other);
+	bool operator==(Article& other);
 
 	void write(std::fstream& out);
 	friend std::fstream& operator<<(std::fstream& out, Article& article);
