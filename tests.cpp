@@ -26,31 +26,31 @@ TEST_SUITE("Article")
 		SUBCASE("it returns false if DOIs are different")
 		{
 			Article some_article_different_doi(other_doi, some_name, some_author, some_year);
-			CHECK_FALSE(some_article == some_article_different_doi);
+			CHECK_FALSE(some_article.is_identical(some_article_different_doi));
 		}
 
 		SUBCASE("it returns false if Names are different")
 		{
 			Article some_article_different_name(some_doi, other_name, some_author, some_year);
-            CHECK_FALSE(some_article == some_article_different_doi);
+			CHECK_FALSE(some_article.is_identical(some_article_different_name));
 		}
 
 		SUBCASE("it returns false if Authors are different")
 		{
 			Article some_article_different_author(some_doi, some_name, other_author, some_year);
-            CHECK_FALSE(some_article == some_article_different_doi);
+			CHECK_FALSE(some_article.is_identical(some_article_different_author));
 		}
 
 		SUBCASE("it returns false if Years are different")
 		{
 			Article some_article_different_year(some_doi, some_name, some_author, other_year);
-            CHECK_FALSE(some_article == some_article_different_doi);
+			CHECK_FALSE(some_article.is_identical(some_article_different_year));
 		}
 
 		SUBCASE("it returns true if all fields are equal")
 		{
 			Article some_article_identical(some_doi, some_name, some_author, some_year);
-            CHECK(some_article == some_article_different_doi);
+			CHECK(some_article.is_identical(some_article_identical));
 		}
 	}
 
