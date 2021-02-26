@@ -15,7 +15,7 @@ TEST_SUITE("Article")
 	static const char* other_author = "Other-Author";
 	static const unsigned other_year = 2001u;
 
-	TEST_CASE("should indicate if it has certain primary key")
+	TEST_CASE("should compare its primary key with others")
 	{
 		CHECK(some_article.has_primary_key(some_doi));
 		CHECK_FALSE(some_article.has_primary_key(other_doi));
@@ -23,31 +23,31 @@ TEST_SUITE("Article")
 
 	TEST_CASE("should compare if it is identical to other articles")
 	{
-		SUBCASE("returns false if DOIs are different")
+		SUBCASE("it returns false if DOIs are different")
 		{
 			Article some_article_different_doi(other_doi, some_name, some_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_doi));
 		};
 
-		SUBCASE("returns false if Names are different")
+		SUBCASE("it returns false if Names are different")
 		{
 			Article some_article_different_name(some_doi, other_name, some_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_name));
 		};
 
-		SUBCASE("returns false if Authors are different")
+		SUBCASE("it returns false if Authors are different")
 		{
 			Article some_article_different_author(some_doi, some_name, other_author, some_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_author));
 		};
 
-		SUBCASE("returns false if Years are different")
+		SUBCASE("it returns false if Years are different")
 		{
 			Article some_article_different_year(some_doi, some_name, some_author, other_year);
 			CHECK_FALSE(some_article.is_identical(some_article_different_year));
 		};
 
-		SUBCASE("returns true if articles are identical")
+		SUBCASE("it returns true if all fields are equal")
 		{
 			Article some_article_identical(some_doi, some_name, some_author, some_year);
 			CHECK(some_article.is_identical(some_article_identical));
