@@ -2,33 +2,62 @@
 #include "doctest.h"
 #include "Article.h"
 
-static const unsigned some_year = 2000u;
-static const char* const some_doi = "Doi";
-
-Article some_article(some_doi, "", "", some_year);
-
-TEST_CASE("Article should compare primary key")
+TEST_SUITE("Article")
 {
-	CHECK(some_article.compare_key(some_doi));
+	static const char* const some_doi = "Doi";
+	static const char* const some_name = "Name";
+	static const char* const some_author = "Author";
+	static const unsigned some_year = 2000u;
+	Article some_article(some_doi, some_name, some_author, some_year);
 
-	static const char* const different_doi = "Different_Doi";
-	CHECK(!some_article.compare_key(different_doi));
-}
+	static const char* const other_doi = "Other-Doi";
+	static const char* other_name = "Other-Name";
+	static const char* other_author = "Other-Author";
+	static const unsigned other_year = 2001u;
 
-TEST_CASE("Article should write and read contents from file")
-{
-	std::fstream file("testfile.txt", std::fstream::app | std::fstream::in | std::fstream::out);
-	file << some_article;
-	file.seekg(0);
+	TEST_CASE("should indicate if it has certain primary key")
+	{
+		CHECK(some_article.has_primary_key(some_doi));
+		CHECK_FALSE(some_article.has_primary_key(other_doi));
+	}
 
-	Article read_article;
-	file >> read_article;
+	TEST_CASE("should compare if it is identical to other articles")
+	{
+		SUBCASE("returns false if DOIs are different")
+		{
+			Article some_article_different_doi(other_doi, some_name, some_author, some_year);
+			CHECK_FALSE(some_article.is_identical(some_article_different_doi));
+		}
 
-	CHECK(read_article.compare_key(some_doi));
-}
+		SUBCASE("returns false if Names are different")
+		{
+			Article some_article_different_name(some_doi, other_name, some_author, some_year);
+			CHECK_FALSE(some_article.is_identical(some_article_different_name));
+		}
 
-TEST_CASE("Article should give its writing size")
-{
-	const auto EXPECTED_SIZE = 196u;
-	CHECK(some_article.size() == EXPECTED_SIZE);
+		SUBCASE("returns false if Authors are different")
+		{
+			Article some_article_different_author(some_doi, some_name, other_author, some_year);
+			CHECK_FALSE(some_article.is_identical(some_article_different_author));
+		}
+
+		SUBCASE("returns false if Years are different")
+		{
+			Article some_article_different_year(some_doi, some_name, some_author, other_year);
+			CHECK_FALSE(some_article.is_identical(some_article_different_year));
+		}
+
+		SUBCASE("returns true if articles are identical")
+		{
+			Article some_article_identical(some_doi, some_name, some_author, some_year);
+			CHECK(some_article.is_identical(some_article_identical));
+		}
+	}
+
+	TEST_CASE("should write to file its writing writing_size")
+	{
+		std::fstream file("testfile.txt", std::fstream::in | std::fstream::out);
+		file << some_article;
+		CHECK(file.tellg() == some_article.writing_size());
+	}
 }
