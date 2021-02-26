@@ -17,7 +17,6 @@ public:
 	size_t infile_size();
 	bool has_primary_key(const char* other_doi);
 	bool is_identical(Article& other);
-	bool operator==(Article& other_article);
 
 	void write(std::fstream& out);
 	friend std::fstream& operator<<(std::fstream& out, Article& article);

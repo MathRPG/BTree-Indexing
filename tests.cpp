@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "Article.h"
+#include "B_Tree.h"
 
 TEST_SUITE("Article")
 {
@@ -83,4 +84,18 @@ TEST_SUITE("Article")
 
 		file.close();
 	}
+}
+
+TEST_SUITE("B-Tree")
+{
+	TEST_CASE("Is able to initialize B-tree")
+	{
+		B_Tree tree("index.txt", "registry.txt");
+	}
+
+	TEST_CASE()
+	{
+
+	}
+
 }
