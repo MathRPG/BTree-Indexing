@@ -65,20 +65,12 @@ TEST_SUITE("Article")
 		Article read_article;
 		file >> read_article;
 
-		SUBCASE("writes to file infile_size bytes")
-		{
-			CHECK(file.tellg() == an_article.infile_size());
-		}
+		// Writes to and reads from file promised byte count
+		CHECK(file.tellg() == an_article.infile_size());
+		CHECK(file.tellp() == an_article.infile_size());
 
-		SUBCASE("reads from file infile_size bytes")
-		{
-			CHECK(file.tellp() == an_article.infile_size());
-		}
-
-		SUBCASE("writes to file data that can be read and interpreted back")
-		{
-			CHECK_UNARY(an_article == read_article);
-		}
+		// Read data can be interpreted back as same article
+		CHECK_UNARY(an_article == read_article);
 
 		file.close();
 	}
@@ -86,11 +78,6 @@ TEST_SUITE("Article")
 
 TEST_SUITE("B-Tree")
 {
-	TEST_CASE("Is able to initialize B-tree")
-	{
-		B_Tree tree("index.txt", "registry.txt");
-	}
-
 	TEST_CASE("should create index and registry files if they don't exist")
 	{
 		const char* nonexistent_index_filepath = "this_index_file_does_not_exist.txt";
@@ -110,56 +97,54 @@ TEST_SUITE("B-Tree")
 
 	TEST_CASE("should be searchable for articles")
 	{
-		SUBCASE("returns false when article was not inserted")
+		SUBCASE("returns false if tree is empty")
 		{
-			B_Tree tree("", "");
+			B_Tree empty_tree("", "");
+			CHECK_FALSE(empty_tree.contains(some_doi));
+			CHECK_FALSE(empty_tree.contains(other_doi));
+		}
+	}
 
-			CHECK_FALSE(tree.contains(some_doi));
+	Article other_article = Article(other_doi, "", "", 2000);
+
+	TEST_CASE("should be able to insert articles")
+	{
+		B_Tree empty_tree("", "");
+
+		SUBCASE("search returns true if article is only one on tree")
+		{
+			empty_tree.insert(an_article);
+			CHECK(empty_tree.contains(some_doi));
 		}
 
-		SUBCASE("returns true when article was inserted")
+		SUBCASE("search returns true for multiple articles on the tree")
 		{
-			B_Tree tree("", "");
+			empty_tree.insert(an_article);
+			empty_tree.insert(other_article);
 
-			tree.insert(an_article);
+			CHECK(empty_tree.contains(some_doi));
+			CHECK(empty_tree.contains(other_doi));
+		}
+	}
 
-			CHECK(tree.contains(some_doi));
+	TEST_CASE("should be able to remove articles")
+	{
+		B_Tree tree_with_an_article("", "");
+		tree_with_an_article.insert(an_article);
+
+		SUBCASE("search returns false if only article is removed")
+		{
+			tree_with_an_article.remove(some_doi);
+			CHECK_FALSE(tree_with_an_article.contains(some_doi));
 		}
 
-		SUBCASE("returns true if article was ever inserted")
+		SUBCASE("search only returns false for removed key")
 		{
-			B_Tree tree("", "");
+			tree_with_an_article.insert(other_article);
+			tree_with_an_article.remove(some_doi);
 
-			Article other_article(other_doi, "", "", 2000);
-
-			tree.insert(an_article);
-			tree.insert(other_article);
-
-			CHECK(tree.contains(some_doi));
-			CHECK(tree.contains(other_doi));
-		}
-
-		SUBCASE("returns false if article was deleted")
-		{
-			B_Tree tree("", "");
-
-			tree.insert(an_article);
-			tree.remove(some_doi);
-
-			CHECK_FALSE(tree.contains(some_doi));
-		}
-
-		SUBCASE("only removes sent key")
-		{
-			B_Tree tree("", "");
-			Article other_article(other_doi, "", "", 2000);
-
-			tree.insert(an_article);
-			tree.insert(other_article);
-			tree.remove(some_doi);
-
-			CHECK_FALSE(tree.contains(some_doi));
-			CHECK(tree.contains(other_doi));
+			CHECK_FALSE(tree_with_an_article.contains(some_doi));
+			CHECK(tree_with_an_article.contains(other_doi));
 		}
 	}
 }
