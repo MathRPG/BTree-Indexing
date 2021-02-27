@@ -16,26 +16,35 @@ void Node::insert_non_full(const Article& article)
 	keys[n++] = article;
 	std::sort(keys.begin(), keys.begin() + n, Article::compare_article);
 }
+
+/*
+ * Insert-Nonfull(x,k)
+ * i = x.n
+ * if x.leaf
+ * 	while i>= 1 and k < x.key_i
+ * 		x.key_(i+1) = k.key_i
+ * 		i = i - 1
+ * 	x.key_(i+1) = k
+ * 	x.n = x.n + 1
+ * 	Disk-Write(x)
+ * else
+ * 	while i >= 1 and k < x.key_i
+ * 		i = i - 1
+ * 	i = i + 1
+ * 	Disk-Read(x.c_i)
+ * 	if x.c_i.n == 2t - 1
+ * 		Split-Child(x, i)
+ * 		if k > k.key_i
+ * 			i = i + 1
+ * 		Insert-Nonfull(x.c_i, k)
+ */
+
 bool Node::is_not_full() const
 {
 	return n != NODE_CAPACITY;
 }
 
-/*
- * B-Tree Insert(T, k)
- *
- *	r = T.root
- *	if r.n == 2t -1;
- * 		s = ALLOCATE-NODE();
- * 		T.root = s
- * 		s.leaf = FALSE
- * 		s.n = 0
- * 		s.c1 = r
- * 		B-TREE-SPLIT-CHILD(s, 1)
- * 		B-TREE-INSERT-NONFULL(s, k)
- *	else
- *		B-TREE-INSERT-NONFULL(r, k)
- */
+
 
 /*
  * Split-Child(x, i)
@@ -59,28 +68,6 @@ bool Node::is_not_full() const
  * Disk-Write(y)
  * Disk-Write(z)
  * Disk-Write(x)
- */
-
-/*
- * Insert-Nonfull(x,k)
- * i = x.n
- * if x.leaf
- * 	while i>= 1 and k < x.key_i
- * 		x.key_(i+1) = k.key_i
- * 		i = i - 1
- * 	x.key_(i+1) = k
- * 	x.n = x.n + 1
- * 	Disk-Write(x)
- * else
- * 	while i >= 1 and k < x.key_i
- * 		i = i - 1
- * 	i = i + 1
- * 	Disk-Read(x.c_i)
- * 	if x.c_i.n == 2t - 1
- * 		Split-Child(x, i)
- * 		if k > k.key_i
- * 			i = i + 1
- * 		Insert-Nonfull(x.c_i, k)
  */
 
 void Node::remove(const char* key)
