@@ -94,19 +94,16 @@ TEST_SUITE("B-Tree")
 		const char* nonexistent_index_filepath = "this_index_file_doesn't_exist.txt";
 		const char* nonexistent_registry_filepath = "this_registry_file_doesn't_exist.txt";
 
-//
-//		B_Tree tree(nonexistent_filepath, "some_file.txt");
-//
-//		CHECK(std::filesystem::exists(nonexistent_filepath));
-//		remove(nonexistent_filepath);
-//
-//		const char* nonexistent_filepath = "this_file_does_not_exist.txt";
-//		remove(nonexistent_filepath);
-//
-//		B_Tree tree("some_file.txt", nonexistent_filepath);
-//
-//		CHECK(std::filesystem::exists(nonexistent_filepath));
-//		remove(nonexistent_filepath);
+		remove(nonexistent_index_filepath);
+		remove(nonexistent_registry_filepath);
+
+		B_Tree tree(nonexistent_index_filepath, nonexistent_registry_filepath);
+
+		CHECK(std::filesystem::exists(nonexistent_index_filepath));
+		CHECK(std::filesystem::exists(nonexistent_registry_filepath));
+
+		remove(nonexistent_index_filepath);
+		remove(nonexistent_registry_filepath);
 	}
 
 //	TEST_CASE("should only close file when tree object is destructed")
