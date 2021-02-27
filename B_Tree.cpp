@@ -18,35 +18,34 @@ bool B_Tree::contains(const char* key) const
 
 void B_Tree::insert(const Article& article)
 {
-	if (root.is_not_full())
+	if (!root.is_full())
 	{
 		root.insert_non_full(article);
+		return;
 	}
-	else
-	{
-		// Cria um array de tamanho n+1
-		std::array<Article, NODE_CAPACITY + 1> helperArray;
 
-		// Copia elementos
-		for (int i = 0; i < NODE_CAPACITY; ++i)
-			helperArray[i] = root.keys[i];
+	// Cria um array de tamanho n+1
+	std::array<Article, NODE_CAPACITY + 1> helperArray;
 
-		// Insere o artigo e ordena nessa array
-		*(helperArray.rbegin()) = article;
-		std::sort(helperArray.begin(), helperArray.end(), Article::compare_article);
+	// Copia elementos
+	for (int i = 0; i < NODE_CAPACITY; ++i)
+		helperArray[i] = root.keys[i];
 
-		// NOW ITS TIME TO GET FUNKY
-		root.children[0] = new Node();
-		root.children[1] = new Node();
+	// Insere o artigo e ordena nessa array
+	*(helperArray.rbegin()) = article;
+	std::sort(helperArray.begin(), helperArray.end(), Article::compare_article);
 
-		// Primeiro elemento vai da subarvore esquerda, segundo fica com a gente, terceiro e quarto vao pra direita
-		root.children[0]->insert_non_full(helperArray[0]);
-		root.children[1]->insert_non_full(helperArray[2]);
-		root.children[1]->insert_non_full(helperArray[3]);
+	// NOW ITS TIME TO GET FUNKY
+	root.children[0] = new Node();
+	root.children[1] = new Node();
 
-		root.keys[0] = helperArray[1];
-		root.n = 1;
-	}
+	// Primeiro elemento vai da subarvore esquerda, segundo fica com a gente, terceiro e quarto vao pra direita
+	root.children[0]->insert_non_full(helperArray[0]);
+	root.children[1]->insert_non_full(helperArray[2]);
+	root.children[1]->insert_non_full(helperArray[3]);
+
+	root.keys[0] = helperArray[1];
+	root.n = 1;
 }
 
 /*

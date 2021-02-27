@@ -17,34 +17,10 @@ void Node::insert_non_full(const Article& article)
 	std::sort(keys.begin(), keys.begin() + n, Article::compare_article);
 }
 
-/*
- * Insert-Nonfull(x,k)
- * i = x.n
- * if x.leaf
- * 	while i>= 1 and k < x.key_i
- * 		x.key_(i+1) = k.key_i
- * 		i = i - 1
- * 	x.key_(i+1) = k
- * 	x.n = x.n + 1
- * 	Disk-Write(x)
- * else
- * 	while i >= 1 and k < x.key_i
- * 		i = i - 1
- * 	i = i + 1
- * 	Disk-Read(x.c_i)
- * 	if x.c_i.n == 2t - 1
- * 		Split-Child(x, i)
- * 		if k > k.key_i
- * 			i = i + 1
- * 		Insert-Nonfull(x.c_i, k)
- */
-
-bool Node::is_not_full() const
+bool Node::is_full() const
 {
-	return n != NODE_CAPACITY;
+	return n == NODE_CAPACITY;
 }
-
-
 
 /*
  * Split-Child(x, i)
