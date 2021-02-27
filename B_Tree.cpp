@@ -40,9 +40,9 @@ void B_Tree::insert(const Article& article)
 		root.children[1] = new Node();
 
 		// Primeiro elemento vai da subarvore esquerda, segundo fica com a gente, terceiro e quarto vao pra direita
-		root.children[0]->insert(helperArray[0]);
-		root.children[1]->insert(helperArray[2]);
-		root.children[1]->insert(helperArray[3]);
+		root.children[0]->insert_non_full(helperArray[0]);
+		root.children[1]->insert_non_full(helperArray[2]);
+		root.children[1]->insert_non_full(helperArray[3]);
 
 		root.keys[0] = helperArray[1];
 		root.n = 1;

@@ -11,51 +11,6 @@ bool Node::contains(const char* key) const
 			|| (children[1] != nullptr && children[1]->contains(key));
 }
 
-/*
- Search(x, k)
- i = 1
- while i <= x.n and k > x.key_i
-   i = i + 1
- if i <= x.n and k == x.key_i
-   return (x, i)
- elseif x.leaf
-   return NIL
- else Disk-Read(x.c_i)
-   return B-Tree-Search(x.c_i, k)
-*/
-
-void Node::insert(const Article& article)
-{
-	if (is_not_full())
-	{
-		insert_non_full(article);
-	}
-	else
-	{
-		// Cria um array de tamanho n+1
-		std::array<Article, NODE_CAPACITY + 1> helper_array;
-
-		// Copia elementos
-		for (int i = 0; i < NODE_CAPACITY; ++i)
-			helper_array[i] = keys[i];
-
-		// Insere o artigo e ordena nessa array
-		*(helper_array.rbegin()) = article;
-		std::sort(helper_array.begin(), helper_array.end(), Article::compare_article);
-
-		// NOW ITS TIME TO GET FUNKY
-		children[0] = new Node();
-		children[1] = new Node();
-
-		// Primeiro elemento vai da subarvore esquerda, segundo fica com a gente, terceiro e quarto vao pra direita
-		children[0]->insert(helper_array[0]);
-		children[1]->insert(helper_array[2]);
-		children[1]->insert(helper_array[3]);
-
-		keys[0] = helper_array[1];
-		n = 1;
-	}
-}
 void Node::insert_non_full(const Article& article)
 {
 	keys[n++] = article;

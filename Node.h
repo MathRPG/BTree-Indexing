@@ -12,7 +12,6 @@ class Node
 {
 public:
 	bool contains(const char* key) const;
-	void insert(const Article& article);
 	void remove(const char* key);
 	~Node();
 	bool is_not_full() const;
