@@ -99,7 +99,7 @@ TEST_SUITE("B-Tree")
 	{
 		SUBCASE("returns false if tree is empty")
 		{
-			B_Tree empty_tree("", "");
+			const B_Tree empty_tree("", "");
 			CHECK_FALSE(empty_tree.contains(some_doi));
 			CHECK_FALSE(empty_tree.contains(other_doi));
 		}

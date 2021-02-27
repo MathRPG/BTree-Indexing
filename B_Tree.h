@@ -11,7 +11,7 @@ class B_Tree
 {
 public:
 	B_Tree(filename_t index_path, filename_t registry_path);
-	bool contains(const char* key);
+	bool contains(const char* key) const;
 	void insert(Article& article);
 	void remove(const char* key);
 private:
