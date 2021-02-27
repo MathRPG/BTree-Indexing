@@ -18,7 +18,7 @@ public:
 	Article();
 	Article(const char* doi, const char* name, const char* author, year_type year) noexcept;
 
-	[[nodiscard]] size_t infile_size() const;
+	[[nodiscard]] static size_t infile_size();
 
 	bool has_primary_key(const char* other_doi) const;
 	bool is_identical(Article& other) const;

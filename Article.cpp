@@ -13,7 +13,7 @@ Article::Article(const char* doi, const char* name, const char* author, unsigned
 	this->year = year;
 }
 
-size_t Article::infile_size() const
+size_t Article::infile_size()
 {
 	return MAX_DOI_LEN + MAX_TITLE_LEN + MAX_AUTHOR_LEN + INFILE_YEAR_SIZE;
 }

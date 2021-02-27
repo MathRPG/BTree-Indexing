@@ -127,6 +127,18 @@ TEST_SUITE("B-Tree")
 		}
 	}
 
+	TEST_CASE("should not fail when more articles are inserted than a single node's capacity")
+	{
+		B_Tree tree("", "");
+		Article a("Doi_a", "", "", 2000), b("Doi_b", "", "", 2000),
+				c("Doi_c", "", "", 2000), d("Doi_d", "", "", 2000);
+
+		tree.insert(a);
+		tree.insert(b);
+		tree.insert(c);
+		tree.insert(d);
+	}
+
 	TEST_CASE("should be able to remove articles")
 	{
 		B_Tree tree_with_an_article("", "");
