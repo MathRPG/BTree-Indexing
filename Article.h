@@ -4,7 +4,7 @@
 #include <string>
 
 static const int MAX_DOI_LEN = 64;
-static const int MAX_NAME_LEN = 64;
+static const int MAX_TITLE_LEN = 64;
 static const int MAX_AUTHOR_LEN = 64;
 
 static const int EQUAL_STRINGS = 0;
@@ -28,7 +28,7 @@ public:
 
 private:
 	char doi[MAX_DOI_LEN]{};
-	char name[MAX_NAME_LEN]{};
+	char title[MAX_TITLE_LEN]{};
 	char author[MAX_AUTHOR_LEN]{};
 	unsigned year = 0;
 };
