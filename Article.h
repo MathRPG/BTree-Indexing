@@ -1,5 +1,4 @@
-#ifndef B_TREE_INDEXING_ARTICLE_H
-#define B_TREE_INDEXING_ARTICLE_H
+#pragma once
 
 #include <string>
 
@@ -32,5 +31,3 @@ private:
 	char author[MAX_AUTHOR_LEN]{};
 	unsigned year = 0;
 };
-
-#endif //B_TREE_INDEXING_ARTICLE_H

@@ -1,5 +1,4 @@
-#ifndef B_TREE_INDEXING_B_TREE_H
-#define B_TREE_INDEXING_B_TREE_H
+#pragma once
 
 #include "Article.h"
 
@@ -17,5 +16,3 @@ public:
 private:
 	std::vector<Article> all_articles;
 };
-
-#endif //B_TREE_INDEXING_B_TREE_H
