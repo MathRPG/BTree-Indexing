@@ -3,6 +3,8 @@
 #include <cstring>
 #include <fstream>
 
+Article::Article() = default;
+
 Article::Article(const char* doi, const char* name, const char* author, unsigned int year) noexcept
 {
 	strncpy(this->doi, doi, MAX_DOI_LEN);
@@ -55,6 +57,7 @@ void Article::read(std::fstream& in)
 	in.read(this->author, MAX_AUTHOR_LEN);
 	in.read(reinterpret_cast<char*> (&this->year), sizeof(this->year));
 }
+
 void operator>>(std::fstream& in, Article& article)
 {
 	article.read(in);
@@ -64,4 +67,3 @@ bool Article::operator==(Article& other) const
 {
 	return this->is_identical(other);
 }
-Article::Article() = default;

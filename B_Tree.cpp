@@ -18,7 +18,7 @@ bool B_Tree::contains(const char* key) const
 	return false;
 }
 
-void B_Tree::insert(Article& article)
+void B_Tree::insert(const Article& article)
 {
 	this->all_articles.push_back(article);
 }
