@@ -73,13 +73,3 @@ bool Article::compare_article(const Article& first, const Article& second)
 {
 	return strncmp(first.doi, second.doi, MAX_DOI_LEN);
 }
-
-//bool compare_article(const Article& first, const Article& second)
-//{
-//	return strncmp(first.doi, second.doi, MAX_DOI_LEN);
-//}
-
-//bool Article::compare_article (const Article& first, const Article& second)
-//{
-//
-//}

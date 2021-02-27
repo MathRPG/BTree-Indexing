@@ -68,10 +68,10 @@ void Node::insert(const Article& article)
  * 		s.leaf = FALSE
  * 		s.n = 0
  * 		s.c1 = r
- * 		B-TREE-SPLIT-CHILD(s.1)
- * 		B-TREE-INSERT-NONFULL(s,k)
+ * 		B-TREE-SPLIT-CHILD(s, 1)
+ * 		B-TREE-INSERT-NONFULL(s, k)
  *	else
- *		B-TREE-INSERT-NONFULL(r,k)
+ *		B-TREE-INSERT-NONFULL(r, k)
  */
 
 /*
