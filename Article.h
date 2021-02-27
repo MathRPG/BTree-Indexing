@@ -14,13 +14,13 @@ public:
 	Article();
 	Article(const char* doi, const char* name, const char* author, unsigned year);
 
-	size_t infile_size();
+	[[nodiscard]] size_t infile_size() const;
 
-	bool has_primary_key(const char* other_doi);
-	bool is_identical(Article& other);
-	bool operator==(Article& other);
+	bool has_primary_key(const char* other_doi) const;
+	bool is_identical(Article& other) const;
+	bool operator==(Article& other) const;
 
-	void write(std::fstream& out);
+	void write(std::fstream& out) const;
 	friend std::fstream& operator<<(std::fstream& out, Article& article);
 
 	void read(std::fstream& in);
