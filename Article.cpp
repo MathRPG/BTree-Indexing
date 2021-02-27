@@ -15,7 +15,7 @@ Article::Article(const char* doi, const char* name, const char* author, unsigned
 
 size_t Article::infile_size() const
 {
-	return MAX_DOI_LEN + MAX_TITLE_LEN + MAX_AUTHOR_LEN + sizeof(typeof(year));
+	return MAX_DOI_LEN + MAX_TITLE_LEN + MAX_AUTHOR_LEN + INFILE_YEAR_SIZE;
 }
 
 bool Article::has_primary_key(const char* other_doi) const
@@ -41,7 +41,7 @@ void Article::write(std::fstream& out) const
 	out.write(doi, MAX_DOI_LEN);
 	out.write(title, MAX_TITLE_LEN);
 	out.write(author, MAX_AUTHOR_LEN);
-	out.write(reinterpret_cast<const char*> (&year), sizeof(typeof(year)));
+	out.write(reinterpret_cast<const char*> (&year), INFILE_YEAR_SIZE);
 }
 
 std::fstream& operator<<(std::fstream& out, Article& article)
@@ -55,7 +55,7 @@ void Article::read(std::fstream& in)
 	in.read(doi, MAX_DOI_LEN);
 	in.read(title, MAX_TITLE_LEN);
 	in.read(author, MAX_AUTHOR_LEN);
-	in.read(reinterpret_cast<char*> (&year), sizeof(typeof(year)));
+	in.read(reinterpret_cast<char*> (&year), INFILE_YEAR_SIZE);
 }
 
 void operator>>(std::fstream& in, Article& article)

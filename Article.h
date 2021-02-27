@@ -7,12 +7,16 @@ static const int MAX_DOI_LEN = 64;
 static const int MAX_TITLE_LEN = 64;
 static const int MAX_AUTHOR_LEN = 64;
 
+typedef unsigned int year_type;
+static const size_t INFILE_YEAR_SIZE = sizeof(typeof(year_type));
+
 static const int EQUAL_STRINGS = 0;
+
 class Article
 {
 public:
 	Article();
-	Article(const char* doi, const char* name, const char* author, unsigned year) noexcept;
+	Article(const char* doi, const char* name, const char* author, year_type year) noexcept;
 
 	[[nodiscard]] size_t infile_size() const;
 
@@ -30,7 +34,7 @@ private:
 	char doi[MAX_DOI_LEN]{};
 	char title[MAX_TITLE_LEN]{};
 	char author[MAX_AUTHOR_LEN]{};
-	unsigned year = 0;
+	year_type year = 0;
 };
 
 #endif
