@@ -21,3 +21,8 @@ void B_Tree::insert(Article& article)
 {
 	this->all_articles.push_back(article);
 }
+
+void B_Tree::remove_key(const char* const key)
+{
+	this->all_articles.pop_back();
+}

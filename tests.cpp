@@ -91,8 +91,8 @@ TEST_SUITE("B-Tree")
 
 	TEST_CASE("should create index and registry files if they don't exist")
 	{
-		const char* nonexistent_index_filepath = "this_index_file_doesn't_exist.txt";
-		const char* nonexistent_registry_filepath = "this_registry_file_doesn't_exist.txt";
+		const char* nonexistent_index_filepath = "this_index_file_does_not_exist.txt";
+		const char* nonexistent_registry_filepath = "this_registry_file_does_not_exist.txt";
 
 		remove(nonexistent_index_filepath);
 		remove(nonexistent_registry_filepath);
@@ -137,6 +137,21 @@ TEST_SUITE("B-Tree")
 			CHECK(tree.contains(some_doi));
 			CHECK(tree.contains(other_doi));
 		}
+
+		SUBCASE("returns false if article was deleted")
+		{
+			B_Tree tree("", "");
+
+			tree.insert(an_article);
+			tree.remove_key(some_doi);
+
+			CHECK_FALSE(tree.contains(some_doi));
+		}
+
+//		SUBCASE("returns false if article was ever deleted")
+//		{
+//			B_Tree tree("", "");
+//		}
 	}
 
 //	TEST_CASE("should only close file when tree object is destructed")
