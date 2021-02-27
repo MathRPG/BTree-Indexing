@@ -12,7 +12,7 @@ class Article
 {
 public:
 	Article();
-	Article(const char* doi, const char* name, const char* author, unsigned year);
+	Article(const char* doi, const char* name, const char* author, unsigned year) noexcept;
 
 	[[nodiscard]] size_t infile_size() const;
 

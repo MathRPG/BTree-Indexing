@@ -3,7 +3,7 @@
 #include <cstring>
 #include <fstream>
 
-Article::Article(const char* doi, const char* name, const char* author, unsigned int year)
+Article::Article(const char* doi, const char* name, const char* author, unsigned int year) noexcept
 {
 	strncpy(this->doi, doi, MAX_DOI_LEN);
 	strncpy(this->title, name, MAX_TITLE_LEN);

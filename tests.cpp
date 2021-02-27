@@ -17,8 +17,6 @@ const char* const other_doi = "Other_DOI";
 
 TEST_SUITE("Article")
 {
-
-
 	TEST_CASE("should use DOI as primary key")
 	{
 		CHECK(an_article.has_primary_key(some_doi));
@@ -164,6 +162,6 @@ TEST_SUITE("B-Tree")
 			CHECK(tree.contains(other_doi));
 		}
 	}
+}
 
 //	TEST_CASE("should only close file when tree object is destructed")
-}
