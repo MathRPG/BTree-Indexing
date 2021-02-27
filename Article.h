@@ -1,6 +1,7 @@
-#pragma once
+#ifndef ARTICLE_H
+#define ARTICLE_H
 
-#include <string>
+#include <fstream>
 
 static const int MAX_DOI_LEN = 64;
 static const int MAX_TITLE_LEN = 64;
@@ -31,3 +32,5 @@ private:
 	char author[MAX_AUTHOR_LEN]{};
 	unsigned year = 0;
 };
+
+#endif

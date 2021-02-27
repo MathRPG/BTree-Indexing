@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BTREE_H
+#define BTREE_H
 
 #include "Article.h"
 
@@ -16,3 +17,5 @@ public:
 private:
 	std::vector<Article> all_articles;
 };
+
+#endif
