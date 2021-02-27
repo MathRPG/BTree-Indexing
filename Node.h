@@ -15,10 +15,11 @@ public:
 	void insert(const Article& article);
 	void remove(const char* key);
 	~Node();
-private:
-	unsigned n = 0;
+	bool is_not_full() const;
+	void insert_non_full(const Article& article);
 	std::array<Article, NODE_CAPACITY> keys{};
 	std::array<Node*, NODE_DEGREE> children{};
+	unsigned n = 0;
 };
 
 #endif

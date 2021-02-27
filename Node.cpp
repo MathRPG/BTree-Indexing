@@ -26,10 +26,9 @@ bool Node::contains(const char* key) const
 
 void Node::insert(const Article& article)
 {
-	if (n != NODE_CAPACITY)
+	if (is_not_full())
 	{
-		keys[n++] = article;
-		std::sort(keys.begin(), keys.begin() + n, Article::compare_article);
+		insert_non_full(article);
 	}
 	else
 	{
@@ -56,6 +55,15 @@ void Node::insert(const Article& article)
 		keys[0] = helper_array[1];
 		n = 1;
 	}
+}
+void Node::insert_non_full(const Article& article)
+{
+	keys[n++] = article;
+	std::sort(keys.begin(), keys.begin() + n, Article::compare_article);
+}
+bool Node::is_not_full() const
+{
+	return n != NODE_CAPACITY;
 }
 
 /*
