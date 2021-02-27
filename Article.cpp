@@ -1,8 +1,7 @@
-#include <cstring>
-#include <fstream>
 #include "Article.h"
 
-Article::Article() = default;
+#include <cstring>
+#include <fstream>
 
 Article::Article(const char* doi, const char* name, const char* author, unsigned int year)
 {
