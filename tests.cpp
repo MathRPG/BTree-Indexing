@@ -111,13 +111,13 @@ TEST_SUITE("B-Tree")
 	{
 		B_Tree empty_tree("", "");
 
-		SUBCASE("search returns true if article is only one on tree")
+		SUBCASE("contains returns true if article is only one on tree")
 		{
 			empty_tree.insert(an_article);
 			CHECK(empty_tree.contains(some_doi));
 		}
 
-		SUBCASE("search returns true for multiple articles on the tree")
+		SUBCASE("contains returns true for multiple articles on the tree")
 		{
 			empty_tree.insert(an_article);
 			empty_tree.insert(other_article);
@@ -132,13 +132,13 @@ TEST_SUITE("B-Tree")
 		B_Tree tree_with_an_article("", "");
 		tree_with_an_article.insert(an_article);
 
-		SUBCASE("search returns false if only article is removed")
+		SUBCASE("contains returns false if only article is removed")
 		{
 			tree_with_an_article.remove(some_doi);
 			CHECK_FALSE(tree_with_an_article.contains(some_doi));
 		}
 
-		SUBCASE("search only returns false for removed key")
+		SUBCASE("contains only returns false for removed key")
 		{
 			tree_with_an_article.insert(other_article);
 			tree_with_an_article.remove(some_doi);

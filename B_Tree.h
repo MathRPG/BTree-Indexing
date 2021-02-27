@@ -2,6 +2,7 @@
 #define BTREE_H
 
 #include "Article.h"
+#include "Node.h"
 
 #include <vector>
 
@@ -15,7 +16,8 @@ public:
 	void insert(const Article& article);
 	void remove(const char* key);
 private:
-	std::vector<Article> all_articles;
+//	std::vector<Article> all_articles;
+	Node root;
 };
 
 #endif
