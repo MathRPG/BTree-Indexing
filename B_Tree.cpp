@@ -24,18 +24,12 @@ void B_Tree::insert(const Article& article)
 		return;
 	}
 
-	// Cria um array de tamanho n+1
-	std::array<Article, NODE_CAPACITY + 1> helperArray;
+	std::array<Article, NODE_CAPACITY + 1> helperArray = make_helper_array(article);
+	split_root(helperArray);
+}
 
-	// Copia elementos
-	for (int i = 0; i < NODE_CAPACITY; ++i)
-		helperArray[i] = root.keys[i];
-
-	// Insere o artigo e ordena nessa array
-	*(helperArray.rbegin()) = article;
-	std::sort(helperArray.begin(), helperArray.end(), Article::compare_article);
-
-	// NOW ITS TIME TO GET FUNKY
+void B_Tree::split_root(const std::array<Article, NODE_CAPACITY + 1>& helperArray)
+{// NOW ITS TIME TO GET FUNKY
 	root.children[0] = new Node();
 	root.children[1] = new Node();
 
@@ -46,6 +40,19 @@ void B_Tree::insert(const Article& article)
 
 	root.keys[0] = helperArray[1];
 	root.n = 1;
+}
+
+std::array<Article, NODE_CAPACITY + 1> B_Tree::make_helper_array(const Article& article)
+{
+	std::array<Article, NODE_CAPACITY + 1> helperArray;
+
+	// Copia elementos
+	for (int i = 0; i < NODE_CAPACITY; ++i)
+		helperArray[i] = root.keys[i];
+
+	*(helperArray.rbegin()) = article;
+	std::sort(helperArray.begin(), helperArray.end(), Article::compare_article);
+	return helperArray;
 }
 
 /*

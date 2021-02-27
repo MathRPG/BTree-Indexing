@@ -1,7 +1,6 @@
 #ifndef BTREE_H
 #define BTREE_H
 
-#include "Article.h"
 #include "Node.h"
 
 #include <vector>
@@ -17,6 +16,8 @@ public:
 	void remove(const char* key);
 private:
 	Node root;
+	std::array<Article, NODE_CAPACITY + 1> make_helper_array(const Article& article);
+	void split_root(const std::array<Article, NODE_CAPACITY + 1>& helperArray);
 };
 
 #endif

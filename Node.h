@@ -18,7 +18,7 @@ public:
 	std::array<Article, NODE_CAPACITY> keys{};
 	std::array<Node*, NODE_DEGREE> children{};
 	unsigned n = 0;
-	bool is_full() const;
+	[[nodiscard]] bool is_full() const;
 };
 
 #endif
