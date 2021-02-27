@@ -1,7 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <filesystem>
 #include "doctest.h"
-#include "Article.h"
 #include "B_Tree.h"
 
 TEST_SUITE("Article")
@@ -104,6 +103,46 @@ TEST_SUITE("B-Tree")
 
 		remove(nonexistent_index_filepath);
 		remove(nonexistent_registry_filepath);
+	}
+
+	TEST_CASE("should be searchable for articles")
+	{
+		const char* const some_doi = "Some_DOI";
+		const char* const some_title = "Some_Title";
+		const char* const some_author = "Some_Author";
+		const unsigned int some_year = 2000u;
+
+		Article an_article(some_doi, some_title, some_author, some_year);
+
+		SUBCASE("returns false when article was not inserted")
+		{
+			B_Tree tree("", "");
+
+			CHECK_FALSE(tree.contains(some_doi));
+		}
+
+		SUBCASE("returns true when article was inserted")
+		{
+			B_Tree tree("", "");
+
+			tree.insert(an_article);
+
+			CHECK(tree.contains(some_doi));
+		}
+		
+		SUBCASE("returns true if article was ever inserted")
+		{
+			B_Tree tree("", "");
+
+			const char* other_doi = "Other_DOI";
+			Article other_article(other_doi, "", "", 2001);
+			
+			tree.insert(an_article);
+			tree.insert(other_article);
+			
+			CHECK(tree.contains(some_doi));
+			CHECK(tree.contains(other_doi));
+		}
 	}
 
 //	TEST_CASE("should only close file when tree object is destructed")
