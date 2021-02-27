@@ -22,19 +22,6 @@ private:
 #endif
 
 /*
- Search(x, k)
- i = 1
- while i <= x.n and k > x.key_i
-   i = i + 1
- if i <= x.n and k == x.key_i
-   return (x, i)
- elseif x.leaf
-   return NIL
- else Disk-Read(x.c_i)
-   return B-Tree-Search(x.c_i, k)
-*/
-
-/*
  * Create(T)
  * x = Allocate-Node()
  * x.leaf = True

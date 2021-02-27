@@ -1,4 +1,5 @@
-#include "Article.h"
+#include "Node.h"
+#include <algorithm>
 
 #include <cstring>
 #include <fstream>
@@ -23,7 +24,7 @@ bool Article::has_primary_key(const char* other_doi) const
 	return strncmp(doi, other_doi, MAX_DOI_LEN) == EQUAL_STRINGS;
 }
 
-bool Article::is_identical(Article& other) const
+bool Article::is_identical(const Article& other) const
 {
 	if (!has_primary_key(other.doi))
 		return false;
@@ -67,3 +68,18 @@ bool Article::operator==(Article& other) const
 {
 	return is_identical(other);
 }
+
+bool Article::compare_article(const Article& first, const Article& second)
+{
+	return strncmp(first.doi, second.doi, MAX_DOI_LEN);
+}
+
+//bool compare_article(const Article& first, const Article& second)
+//{
+//	return strncmp(first.doi, second.doi, MAX_DOI_LEN);
+//}
+
+//bool Article::compare_article (const Article& first, const Article& second)
+//{
+//
+//}

@@ -21,7 +21,7 @@ public:
 	[[nodiscard]] static size_t infile_size();
 
 	bool has_primary_key(const char* other_doi) const;
-	bool is_identical(Article& other) const;
+	[[nodiscard]] bool is_identical(const Article& other) const;
 	bool operator==(Article& other) const;
 
 	void write(std::fstream& out) const;
@@ -29,6 +29,8 @@ public:
 
 	void read(std::fstream& in);
 	friend void operator>>(std::fstream& in, Article& article);
+
+	static bool compare_article(const Article& first, const Article& second);
 
 private:
 	char doi[MAX_DOI_LEN]{};

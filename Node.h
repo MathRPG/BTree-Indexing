@@ -6,7 +6,7 @@
 #include <array>
 
 static const int NODE_DEGREE = 4;
-static const int NODE_CAPACITY = 3;
+static const int NODE_CAPACITY = NODE_DEGREE - 1;
 
 class Node
 {
@@ -17,8 +17,8 @@ public:
 	~Node();
 private:
 	unsigned n = 0;
-	std::array<Node*, NODE_DEGREE> children{};
 	std::array<Article, NODE_CAPACITY> keys{};
+	std::array<Node*, NODE_DEGREE> children{};
 };
 
 #endif

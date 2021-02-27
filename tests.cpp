@@ -127,16 +127,26 @@ TEST_SUITE("B-Tree")
 		}
 	}
 
-	TEST_CASE("should not fail when more articles are inserted than a single node's capacity")
+	TEST_CASE("should split root when many articles are inserted")
 	{
 		B_Tree tree("", "");
-		Article a("Doi_a", "", "", 2000), b("Doi_b", "", "", 2000),
-				c("Doi_c", "", "", 2000), d("Doi_d", "", "", 2000);
 
-		tree.insert(a);
-		tree.insert(b);
-		tree.insert(c);
-		tree.insert(d);
+		Article insert_articles [4] = {
+				Article("Doi_a", "", "", 2000),
+				Article("Doi_b", "", "", 2000),
+				Article("Doi_c", "", "", 2000),
+				Article("Doi_d", "", "", 2000)
+		};
+
+		for (auto& article : insert_articles)
+			tree.insert(article);
+
+		// All 'Doi's must be in tree
+		CHECK(tree.contains("Doi_a"));
+		CHECK(tree.contains("Doi_b"));
+		CHECK(tree.contains("Doi_c"));
+		CHECK(tree.contains("Doi_d"));
+		CHECK_FALSE(tree.contains("Doi_z"));
 	}
 
 	TEST_CASE("should be able to remove articles")
