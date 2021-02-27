@@ -64,3 +64,4 @@ bool Article::operator==(Article& other) const
 {
 	return this->is_identical(other);
 }
+Article::Article() = default;

@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
+#include "Article.h"
 #include "B_Tree.h"
 
 #include <filesystem>
@@ -12,10 +13,11 @@ const unsigned int some_year = 2000u;
 
 Article an_article(some_doi, some_title, some_author, some_year);
 
+const char* const other_doi = "Other_DOI";
+
 TEST_SUITE("Article")
 {
 
-	const char* const other_doi = "Other_DOI";
 
 	TEST_CASE("should use DOI as primary key")
 	{
@@ -130,8 +132,7 @@ TEST_SUITE("B-Tree")
 		{
 			B_Tree tree("", "");
 
-			const char* other_doi = "Other_DOI";
-			Article other_article(other_doi, "", "", 2001);
+			Article other_article(other_doi, "", "", 2000);
 
 			tree.insert(an_article);
 			tree.insert(other_article);
@@ -145,15 +146,23 @@ TEST_SUITE("B-Tree")
 			B_Tree tree("", "");
 
 			tree.insert(an_article);
-			tree.remove_key(some_doi);
+			tree.remove(some_doi);
 
 			CHECK_FALSE(tree.contains(some_doi));
 		}
 
-//		SUBCASE("returns false if article was ever deleted")
-//		{
-//			B_Tree tree("", "");
-//		}
+		SUBCASE("only removes sent key")
+		{
+			B_Tree tree("", "");
+			Article other_article(other_doi, "", "", 2000);
+
+			tree.insert(an_article);
+			tree.insert(other_article);
+			tree.remove(some_doi);
+
+			CHECK_FALSE(tree.contains(some_doi));
+			CHECK(tree.contains(other_doi));
+		}
 	}
 
 //	TEST_CASE("should only close file when tree object is destructed")

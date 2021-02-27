@@ -11,7 +11,7 @@ static const int EQUAL_STRINGS = 0;
 class Article
 {
 public:
-	Article() = default;
+	Article();
 	Article(const char* doi, const char* name, const char* author, unsigned year);
 
 	[[nodiscard]] size_t infile_size() const;

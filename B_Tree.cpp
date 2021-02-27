@@ -23,7 +23,12 @@ void B_Tree::insert(Article& article)
 	this->all_articles.push_back(article);
 }
 
-void B_Tree::remove_key(const char* const key)
+void B_Tree::remove(const char* const key)
 {
-	this->all_articles.pop_back();
+//	this->all_articles.pop_back();
+	std::vector<Article> copy_all_articles(this->all_articles);
+	this->all_articles.clear();
+	for (auto article: copy_all_articles)
+		if (!article.has_primary_key(key))
+			this->all_articles.push_back(article);
 }
