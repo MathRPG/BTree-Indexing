@@ -1,16 +1,17 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <filesystem>
 #include "doctest.h"
 #include "B_Tree.h"
+#include <filesystem>
+
+const char* const some_doi = "Some_DOI";
+const char* const some_title = "Some_Title";
+const char* const some_author = "Some_Author";
+const unsigned int some_year = 2000u;
+
+Article an_article(some_doi, some_title, some_author, some_year);
 
 TEST_SUITE("Article")
 {
-	const char* const some_doi = "Some_DOI";
-	const char* const some_title = "Some_Title";
-	const char* const some_author = "Some_Author";
-	const unsigned int some_year = 2000u;
-
-	Article an_article(some_doi, some_title, some_author, some_year);
 
 	const char* const other_doi = "Other_DOI";
 
@@ -107,13 +108,6 @@ TEST_SUITE("B-Tree")
 
 	TEST_CASE("should be searchable for articles")
 	{
-		const char* const some_doi = "Some_DOI";
-		const char* const some_title = "Some_Title";
-		const char* const some_author = "Some_Author";
-		const unsigned int some_year = 2000u;
-
-		Article an_article(some_doi, some_title, some_author, some_year);
-
 		SUBCASE("returns false when article was not inserted")
 		{
 			B_Tree tree("", "");
@@ -129,17 +123,17 @@ TEST_SUITE("B-Tree")
 
 			CHECK(tree.contains(some_doi));
 		}
-		
+
 		SUBCASE("returns true if article was ever inserted")
 		{
 			B_Tree tree("", "");
 
 			const char* other_doi = "Other_DOI";
 			Article other_article(other_doi, "", "", 2001);
-			
+
 			tree.insert(an_article);
 			tree.insert(other_article);
-			
+
 			CHECK(tree.contains(some_doi));
 			CHECK(tree.contains(other_doi));
 		}
