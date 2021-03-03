@@ -11,7 +11,12 @@ Article::Article(std::string doi, std::string title, std::string author, unsigne
 }
 
 Article::Article(const Article& original)
-= default;
+{
+	this->doi = original.doi;
+	this->title = original.title;
+	this->author = original.author;
+	this->year = original.year;
+}
 
 bool Article::has_key(const std::string& key) const
 {

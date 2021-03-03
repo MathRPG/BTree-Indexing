@@ -14,7 +14,8 @@ bool BTree::contains(const char* key) const
 {
 	return root->contains(key);
 }
+
 void BTree::insert(const Article& article) const
 {
-	root->insert(article);
+	root->insert_non_full(article);
 }

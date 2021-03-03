@@ -12,6 +12,7 @@ public:
 	~BTree();
 	bool contains(const char* key) const;
 	void insert(const Article& article) const;
+private:
 	Node* root;
 };
 

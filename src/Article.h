@@ -13,7 +13,7 @@ private:
 	std::string doi;
 	std::string title;
 	std::string author;
-	unsigned year{};
+	unsigned year;
 };
 
 #endif //B_TREE_INDEXING_ARTICLE_H

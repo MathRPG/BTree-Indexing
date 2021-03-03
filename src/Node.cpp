@@ -5,18 +5,34 @@ Node::Node()
 
 Node::~Node()
 {
-	if (values[0] != nullptr)
-		delete values[0];
+	for (int i = 0; i < item_count; ++i)
+		delete items[i];
+
+	if (is_leaf)
+		return;
+
+	for (int i = 0; i < item_count + 1; ++i)
+		delete children[i];
 }
 
-bool Node::contains(const char* key)
+bool Node::contains(const std::string& key)
 {
-	if (values[0] == nullptr)
+	// TODO: optimize
+	for (int i = 0; i < item_count; ++i)
+		if (items[i]->has_key(key))
+			return true;
+
+	if (is_leaf)
 		return false;
 
-	return values[0] -> has_key(key);
+	for (int i = 0; i < item_count + 1; ++i)
+		if (children[i]->contains(key))
+			return true;
+
+	return false;
 }
-void Node::insert(const Article& article)
+
+void Node::insert_non_full(const Article& article)
 {
-	values[0] = new Article(article);
+	items[item_count++] = new Article(article);
 }
