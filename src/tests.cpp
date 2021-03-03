@@ -1,8 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
-#include "BTree.h"
 #include "Article.h"
+#include "BTree.h"
 
 TEST_SUITE("BTree")
 {
@@ -74,8 +74,28 @@ TEST_SUITE("BTree")
 			Article v2 = Article("DOI", "Title2", "Author2", 2001);
 			tree.insert(v1);
 			tree.insert(v2);
-			Article* fetched = tree.fetch("DOI");
+			const Article* fetched = tree.fetch("DOI");
 			CHECK_UNARY(*fetched == v2);
+		}
+
+		SUBCASE("Removing a key makes it fail contains")
+		{
+			BTree tree = BTree();
+			std::string key = "DOI";
+			tree.insert(Article(key, "", "", 0));
+			tree.remove(key);
+			CHECK_UNARY_FALSE(tree.contains(key));
+		}
+
+		SUBCASE("Article removed and inserted back exists")
+		{
+			BTree tree = BTree();
+			std::string key = "DOI";
+			Article a = Article(key, "", "", 0);
+			tree.insert(a);
+			tree.remove(key);
+			tree.insert(a);
+			CHECK_UNARY(tree.contains(key));
 		}
 	}
 }

@@ -9,9 +9,10 @@ class BTree
 public:
 	BTree();
 	~BTree();
-	bool contains(const std::string& key) const;
+	[[nodiscard]] bool contains(const std::string& key) const;
 	void insert(const Article& article);
-	Article* fetch(const std::string& key) const;
+	[[nodiscard]] const Article* fetch(const std::string& key) const;
+	void remove(const std::string& key);
 private:
 	Node* root;
 };

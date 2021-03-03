@@ -18,7 +18,7 @@ Article::Article(const Article& original)
 	this->year = original.year;
 }
 
-bool Article::operator==(const Article& other)
+bool Article::operator==(const Article& other) const
 {
 	if (this->doi != other.doi)
 		return false;

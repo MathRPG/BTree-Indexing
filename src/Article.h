@@ -10,12 +10,13 @@ class Article
 public:
 	Article(std::string doi, std::string title, std::string author, unsigned year);
 	Article(Article const &original);
-	bool operator==(const Article& other);
+	bool operator==(const Article& other) const;
 private:
 	std::string doi;
 	std::string title;
 	std::string author;
 	unsigned year;
+	bool is_removed = false;
 };
 
 #endif //B_TREE_INDEXING_ARTICLE_H
