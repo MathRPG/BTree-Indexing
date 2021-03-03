@@ -1,3 +1,5 @@
+#include <string>
+#include "BTree.h"
 #include "Node.h"
 
 Node::Node()
@@ -94,4 +96,16 @@ void Node::split_child(unsigned int i)
 
 	items[i - 1] = y->items[NODE_T - 1];
 	item_count++;
+}
+
+void Node::dump(std::fstream& f) const
+{
+	for (int i = 0; i < item_count; ++i)
+		f << *items[i];
+
+	if (is_leaf)
+		return;
+
+	for (int i = 0; i < item_count + 1; ++i)
+		children[i]->dump(f);
 }

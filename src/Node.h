@@ -20,6 +20,7 @@ private:
 	void insert_non_full(const Article& article);
 	void split_child(unsigned int i);
 	Article* fetch(const std::string& key);
+	void dump(std::fstream& f) const;
 };
 
 #endif //B_TREE_INDEXING_NODE_H

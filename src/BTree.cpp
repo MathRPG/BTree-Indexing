@@ -1,10 +1,24 @@
 #include "BTree.h"
+#include "Node.h"
 
 #include <string>
 
 BTree::BTree()
 {
 	root = new Node();
+}
+
+BTree::BTree(std::fstream& f)
+{
+	root = new Node();
+
+	while (!f.eof())
+	{
+		Article from_file(f);
+		if (from_file.doi.empty())
+			return;
+		this->insert(from_file);
+	}
 }
 
 BTree::~BTree()
@@ -45,7 +59,7 @@ void BTree::insert(const Article& article)
 	root = s;
 	s->is_leaf = false;
 	s->item_count = 0;
-	s->children[1 - 1] = r;
+	s->children[0] = r;
 	s->split_child(1);
 	s->insert_non_full(article);
 }
@@ -57,4 +71,9 @@ void BTree::remove(const std::string& key)
 	{
 		fetched->is_removed = true;
 	}
+}
+
+void BTree::dump(std::fstream& f)
+{
+	root->dump(f);
 }

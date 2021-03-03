@@ -18,6 +18,16 @@ Article::Article(const Article& original)
 	this->year = original.year;
 }
 
+Article::Article(std::fstream& f)
+{
+	std::getline(f, this->doi);
+	std::getline(f, this->title);
+	std::getline(f, this->author);
+	std::string year_line;
+	std::getline(f, year_line);
+	this->year = atoi(year_line.c_str());
+}
+
 bool Article::operator==(const Article& other) const
 {
 	if (this->doi != other.doi)
@@ -31,3 +41,10 @@ bool Article::operator==(const Article& other) const
 	return true;
 }
 
+void operator<<(std::fstream& out, const Article& article)
+{
+	out << article.doi << '\n';
+	out << article.title << '\n';
+	out << article.author << '\n';
+	out << article.year << '\n';
+}

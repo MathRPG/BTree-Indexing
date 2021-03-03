@@ -97,7 +97,7 @@ TEST_SUITE("BTree")
 			tree.insert(a);
 			CHECK_UNARY(tree.contains(key));
 		}
-		
+
 		SUBCASE("Removing key that tree doesn't have does nothing")
 		{
 			BTree tree = BTree();
@@ -106,6 +106,59 @@ TEST_SUITE("BTree")
 			tree.insert(a);
 			tree.remove("Other_DOI");
 			CHECK_UNARY(*tree.fetch(key) == a);
+		}
+
+		SUBCASE("Tree with zero articles saves correctly")
+		{
+			BTree tree = BTree();
+			const char* file_name = "BTreeEmpty.txt";
+			std::fstream f_write(file_name, std::fstream::out);
+
+			tree.dump(f_write);
+			f_write.close();
+
+			std::fstream f_read(file_name, std::fstream::in);
+			BTree read_tree(f_read);
+
+			CHECK_UNARY_FALSE(read_tree.contains("Any_key"));
+			CHECK_UNARY_FALSE(read_tree.contains(""));
+		}
+
+		SUBCASE("Tree with one article saves correctly")
+		{
+			BTree tree = BTree();
+			const char* key = "DOI";
+			Article a = Article(key, "Title", "Author", 2000);
+			const char* file_name = "BTree.txt";
+			std::fstream f_write(file_name, std::fstream::out);
+
+			tree.insert(a);
+			tree.dump(f_write);
+			f_write.close();
+
+			std::fstream f_read(file_name, std::fstream::in);
+			BTree read_tree(f_read);
+
+			CHECK_UNARY(read_tree.contains(key));
+		}
+
+		SUBCASE("Tree with many articles saves correctly")
+		{
+			BTree tree = BTree();
+			const char* file_name = "BTreeMany.txt";
+			std::fstream f_write(file_name, std::fstream::out);
+
+			const int quantity = 10;
+			for (int i = 0; i < quantity; ++i)
+				tree.insert(Article(std::to_string(i), "t", "a", 0));
+			tree.dump(f_write);
+			f_write.close();
+
+			std::fstream f_read(file_name, std::fstream::in);
+			BTree read_tree(f_read);
+
+			for (int i = 0; i < quantity; ++i)
+				CHECK_UNARY(read_tree.contains(std::to_string(i)));
 		}
 	}
 }

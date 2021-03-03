@@ -2,6 +2,7 @@
 #define B_TREE_INDEXING_ARTICLE_H
 
 #include <string>
+#include <fstream>
 
 class Article
 {
@@ -10,7 +11,9 @@ class Article
 public:
 	Article(std::string doi, std::string title, std::string author, unsigned year);
 	Article(Article const &original);
+	explicit Article(std::fstream& f);
 	bool operator==(const Article& other) const;
+	friend void operator<<(std::fstream& out, const Article& article);
 private:
 	std::string doi;
 	std::string title;
