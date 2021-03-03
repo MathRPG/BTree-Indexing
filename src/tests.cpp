@@ -97,5 +97,15 @@ TEST_SUITE("BTree")
 			tree.insert(a);
 			CHECK_UNARY(tree.contains(key));
 		}
+		
+		SUBCASE("Removing key that tree doesn't have does nothing")
+		{
+			BTree tree = BTree();
+			const char* key = "DOI";
+			Article a = Article(key, "", "", 0);
+			tree.insert(a);
+			tree.remove("Other_DOI");
+			CHECK_UNARY(*tree.fetch(key) == a);
+		}
 	}
 }
