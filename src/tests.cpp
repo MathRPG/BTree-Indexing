@@ -36,5 +36,35 @@ TEST_SUITE("BTree")
 			CHECK(tree.contains(key_one));
 			CHECK(tree.contains(key_two));
 		}
+
+		SUBCASE("Filling the root")
+		{
+			BTree tree = BTree();
+			for (int i = 0; i < (2 * NODE_T - 1); ++i)
+				tree.insert(Article(std::to_string(i), "", "", 0));
+
+			for (int i = 0; i < (2 * NODE_T - 1); ++i)
+				CHECK(tree.contains(std::to_string(i)));
+		}
+
+		SUBCASE("One more than the root can take")
+		{
+			BTree tree = BTree();
+			unsigned quantity = 2 * NODE_T;
+			for (int i = 0; i < quantity; ++i)
+				tree.insert(Article(std::to_string(i), "", "", i));
+			for (int i = 0; i < quantity; ++i)
+				CHECK(tree.contains(std::to_string(i)));
+		}
+
+		SUBCASE("Many many articles")
+		{
+			BTree tree = BTree();
+			unsigned quantity = 1000;
+			for (int i = 0; i < quantity; ++i)
+				tree.insert(Article(std::to_string(i), "", "", i));
+			for (int i = 0; i < quantity; ++i)
+				CHECK(tree.contains(std::to_string(i)));
+		}
 	}
 }

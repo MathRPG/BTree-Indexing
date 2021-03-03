@@ -8,7 +8,7 @@ class Article
 public:
 	Article(std::string doi, std::string title, std::string author, unsigned year);
 	Article(Article const &original);
-	bool has_key(const std::string& key) const;
+	friend class Node;
 private:
 	std::string doi;
 	std::string title;

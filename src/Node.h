@@ -3,8 +3,7 @@
 
 #include "Article.h"
 
-#define NODE_DEGREE 5
-#define MINIMUM_DEGREE 2 // TODO: Check this
+#define NODE_T 2 // Minimum degree
 
 class Node
 {
@@ -12,13 +11,14 @@ class Node
 public:
 	Node();
 	~Node();
-	void insert_non_full(const Article& article);
 	bool contains(const std::string& key);
 private:
 	bool is_leaf = true;
 	unsigned item_count = 0;
-	Article* items[NODE_DEGREE - 1] = {};
-	Node* children[NODE_DEGREE] = {};
+	Article* items[(2 * NODE_T) - 1] = {};
+	Node* children[(2 * NODE_T)] = {};
+	void insert_non_full(const Article& article);
+	void split_child(unsigned int i);
 };
 
 #endif //B_TREE_INDEXING_NODE_H

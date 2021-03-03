@@ -18,7 +18,3 @@ Article::Article(const Article& original)
 	this->year = original.year;
 }
 
-bool Article::has_key(const std::string& key) const
-{
-	return this->doi == key;
-}

@@ -10,8 +10,8 @@ class BTree
 public:
 	BTree();
 	~BTree();
-	bool contains(const char* key) const;
-	void insert(const Article& article) const;
+	bool contains(const std::string& key) const;
+	void insert(const Article& article);
 private:
 	Node* root;
 };
