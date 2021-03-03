@@ -33,19 +33,3 @@ void BTree::insert(const Article& article)
 	s->split_child(1);
 	s->insert_non_full(article);
 }
-
-/*
- * B-Tree Insert(T, k)
- *
- *	r = T.root
- *	if r.n == 2t -1;
- * 		s = ALLOCATE-NODE();
- * 		T.root = s
- * 		s.leaf = FALSE
- * 		s.n = 0
- * 		s.c1 = r
- * 		B-TREE-SPLIT-CHILD(s, 1)
- * 		B-TREE-INSERT-NONFULL(s, k)
- *	else
- *		B-TREE-INSERT-NONFULL(r, k)
- */

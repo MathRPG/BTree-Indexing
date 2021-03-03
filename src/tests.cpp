@@ -60,7 +60,7 @@ TEST_SUITE("BTree")
 		SUBCASE("Many many articles")
 		{
 			BTree tree = BTree();
-			unsigned quantity = 1000;
+			unsigned quantity = 100;
 			for (int i = 0; i < quantity; ++i)
 				tree.insert(Article(std::to_string(i), "", "", i));
 			for (int i = 0; i < quantity; ++i)
