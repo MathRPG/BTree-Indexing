@@ -6,10 +6,14 @@
 class Article
 {
 public:
-	Article(std::string doi, const char* title, const char* author, unsigned year);
+	Article(std::string doi, std::string title, std::string author, unsigned year);
 	Article(Article const &original);
 	bool has_key(const std::string& key) const;
-	std::basic_string<char> doi;
+private:
+	std::string doi;
+	std::string title;
+	std::string author;
+	unsigned year{};
 };
 
 #endif //B_TREE_INDEXING_ARTICLE_H

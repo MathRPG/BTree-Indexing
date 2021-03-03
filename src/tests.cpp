@@ -29,6 +29,12 @@ TEST_SUITE("BTree")
 		SUBCASE("2 keys")
 		{
 			BTree tree = BTree();
+			const char* key_one = "DOI";
+			tree.insert(Article(key_one, "Title", "Author", 2000));
+			const char* key_two = "Other_DOI";
+			tree.insert(Article(key_two, "Other_Title", "Other_Author", 2001));
+			CHECK(tree.contains(key_one));
+			CHECK(tree.contains(key_two));
 		}
 	}
 }
