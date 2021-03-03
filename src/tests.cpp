@@ -60,11 +60,22 @@ TEST_SUITE("BTree")
 		SUBCASE("Many many articles")
 		{
 			BTree tree = BTree();
-			unsigned quantity = 100;
+			unsigned quantity = 1000;
 			for (int i = 0; i < quantity; ++i)
 				tree.insert(Article(std::to_string(i), "", "", i));
 			for (int i = 0; i < quantity; ++i)
 				CHECK(tree.contains(std::to_string(i)));
+		}
+
+		SUBCASE("Insertion of same key twice replaces old values")
+		{
+			BTree tree = BTree();
+			Article v1 = Article("DOI", "Title1", "Author1", 2000);
+			Article v2 = Article("DOI", "Title2", "Author2", 2001);
+			tree.insert(v1);
+			tree.insert(v2);
+			Article* fetched = tree.fetch("DOI");
+			CHECK_UNARY(*fetched == v2);
 		}
 	}
 }

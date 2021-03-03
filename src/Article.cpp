@@ -18,3 +18,16 @@ Article::Article(const Article& original)
 	this->year = original.year;
 }
 
+bool Article::operator==(const Article& other)
+{
+	if (this->doi != other.doi)
+		return false;
+	if (this->title != other.title)
+		return false;
+	if (this->author != other.author)
+		return false;
+	if (this->year != other.year)
+		return false;
+	return true;
+}
+

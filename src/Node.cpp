@@ -32,6 +32,22 @@ bool Node::contains(const std::string& key)
 	return children[i]->contains(key);
 }
 
+Article* Node::fetch(const std::string& key)
+{
+	int i = 0;
+
+	while (i < item_count and key > items[i]->doi)
+		i++;
+
+	if (i < item_count and key == items[i]->doi)
+		return items[i];
+
+	if (is_leaf)
+		return nullptr;
+
+	return children[i]->fetch(key);
+}
+
 void Node::insert_non_full(const Article& article)
 {
 	unsigned i = item_count;
