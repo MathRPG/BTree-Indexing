@@ -6,13 +6,12 @@
 
 class BTree
 {
-
 public:
 	BTree();
 	~BTree();
 	bool contains(const std::string& key) const;
 	void insert(const Article& article);
-	Article* fetch(const std::string& key);
+	Article* fetch(const std::string& key) const;
 private:
 	Node* root;
 };

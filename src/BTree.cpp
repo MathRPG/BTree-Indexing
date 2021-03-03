@@ -14,10 +14,10 @@ BTree::~BTree()
 
 bool BTree::contains(const std::string& key) const
 {
-	return root->contains(key);
+	return fetch(key) != nullptr;
 }
 
-Article* BTree::fetch(const std::string& key)
+Article* BTree::fetch(const std::string& key) const
 {
 	return root->fetch(key);
 }

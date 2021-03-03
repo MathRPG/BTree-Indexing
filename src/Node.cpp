@@ -17,19 +17,7 @@ Node::~Node()
 
 bool Node::contains(const std::string& key)
 {
-	// TODO: Make search that returns pointer
-	int i = 0;
-
-	while (i < item_count and key > items[i]->doi)
-		i = i + 1;
-
-	if (i < item_count and key == items[i]->doi)
-		return true;
-
-	if (is_leaf)
-		return false;
-
-	return children[i]->contains(key);
+	return fetch(key) != nullptr;
 }
 
 Article* Node::fetch(const std::string& key)
