@@ -53,5 +53,8 @@ void BTree::insert(const Article& article)
 void BTree::remove(const std::string& key)
 {
 	Article* fetched = root->fetch(key);
+	if (fetched != nullptr){
 	fetched->is_removed = true;
+	}
+	return;
 }
