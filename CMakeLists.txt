@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(BTree_Testing src/tests.cpp src/BTree.cpp src/BTree.h src/Article.cpp src/Article.h src/Node.cpp src/Node.h)
+add_executable(BTree_Testing src/tests.cpp src/BTree.cpp src/Article.cpp src/Node.cpp)
+add_executable(BTree_Release src/main.cpp src/BTree.cpp src/Article.cpp src/Node.cpp)
