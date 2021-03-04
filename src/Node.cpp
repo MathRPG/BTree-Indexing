@@ -17,11 +17,6 @@ Node::~Node()
 		delete children[i];
 }
 
-bool Node::contains(const std::string& key)
-{
-	return fetch(key) != nullptr;
-}
-
 Article* Node::fetch(const std::string& key)
 {
 	int i = 0;

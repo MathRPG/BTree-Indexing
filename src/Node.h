@@ -16,7 +16,6 @@ private:
 	unsigned item_count = 0;
 	Article* items[(2 * NODE_T) - 1] = {};
 	Node* children[(2 * NODE_T)] = {};
-	bool contains(const std::string& key);
 	void insert_non_full(const Article& article);
 	void split_child(unsigned int i);
 	Article* fetch(const std::string& key);

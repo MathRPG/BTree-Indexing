@@ -34,7 +34,8 @@ bool BTree::contains(const std::string& key) const
 
 const Article* BTree::fetch(const std::string& key) const
 {
-	return root->fetch(key);
+	const Article* fetched = root->fetch(key);
+	return fetched == nullptr || fetched->is_removed ? nullptr : fetched;
 }
 
 void BTree::insert(const Article& article)
@@ -68,9 +69,7 @@ void BTree::remove(const std::string& key)
 {
 	Article* fetched = root->fetch(key);
 	if (fetched != nullptr)
-	{
 		fetched->is_removed = true;
-	}
 }
 
 void BTree::dump(std::fstream& f)

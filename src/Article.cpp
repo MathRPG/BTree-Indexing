@@ -43,6 +43,9 @@ bool Article::operator==(const Article& other) const
 
 void operator<<(std::fstream& out, const Article& article)
 {
+	if (article.is_removed)
+		return;
+
 	out << article.doi << '\n';
 	out << article.title << '\n';
 	out << article.author << '\n';
