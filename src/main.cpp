@@ -22,7 +22,7 @@ std::string get_str(const std::string& prompt)
 {
 	std::cout << prompt;
 	std::string str;
-	std::cin >> str;
+	std::getline(std::cin >> std::ws, str);
 	return str;
 }
 
