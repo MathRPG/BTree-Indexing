@@ -14,6 +14,7 @@ public:
 	explicit Article(std::fstream& f);
 	bool operator==(const Article& other) const;
 	friend void operator<<(std::fstream& out, const Article& article);
+	friend void operator<<(std::ostream& out, const Article& article);
 private:
 	std::string doi;
 	std::string title;
