@@ -48,3 +48,9 @@ void operator<<(std::fstream& out, const Article& article)
 	out << article.author << '\n';
 	out << article.year << '\n';
 }
+
+void operator<<(std::ostream& out, const Article& article)
+{
+	printf("DOI: %s\nTitulo: %s\nAutor: %s\nAno: %u\n",
+			article.doi.c_str(), article.title.c_str(), article.author.c_str(), article.year);
+}
